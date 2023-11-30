@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Bienvenue dans PAPPL-Mesh-Libraries, une collection de bibliothèques Python pour la manipulation et la visualisation de Mesh 3D.
+A venir
 
 ## Importations
 
