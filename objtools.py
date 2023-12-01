@@ -18,7 +18,12 @@ def showObjCam(mesh_path, cam, z=1, save_image = False, show_3d = True):
     """
     print("_____________________")
     print(mesh_path)
-    mesh = load(mesh_path).color('gray')
+    try:
+        mesh = load(mesh_path).color('gray')
+    except FileNotFoundError :
+        print("File not found")
+        return 0
+    
     if save_image: 
         plt = Plotter(bg='white', offscreen=True) # the plot will not be showed
         plt += mesh
@@ -121,6 +126,16 @@ def showFolder(folder_path, pitch=-30, yaw=30, roll=0, z=1, save_image = False, 
 # ----------------------------------
 # Volume d'un mesh
 
+def volume(file_path):
+    import numpy as np
+    from scipy.spatial import ConvexHull
+    import pywavefront
+    obj_mesh = pywavefront.Wavefront('your_file.obj')
+    vertices = np.array(obj_mesh.vertices)
+    hull = ConvexHull(vertices)
+    volume = hull.volume
+    print("Volume of the convex hull:", volume)
+
 def trimesh_volume(mesh):
     vol = abs(round(mesh.volume, 2))
     return vol
@@ -167,3 +182,5 @@ def affiche_temps(t_init):
 def show_size(file_path):
     file_size = path.getsize(file_path)
     print(f"{file_size/1024} kilo-bytes")
+    
+    
